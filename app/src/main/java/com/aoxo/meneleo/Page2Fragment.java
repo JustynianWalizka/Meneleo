@@ -35,7 +35,7 @@ public class Page2Fragment extends Fragment {
 
     public void updateTimer(String text)
     {
-        tv_partyTimeElapsed.setText(text);
+        tv_partyTimeElapsed.setText(text); // update text of timer on home screen
     }
 
     @Override
