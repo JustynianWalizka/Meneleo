@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen2">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+
+
+
+        <ImageButton
+            android:id="@+id/btnStartParty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/start_btn_selector"
+            android:maxWidth="375px"
+            android:maxHeight="375px"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/desc_padding"
+            android:paddingRight="@dimen/desc_padding"
+            android:text="click to start party"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/slide_desc"
+            android:id="@+id/l_start_btn_msg" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="75dp"
+        android:layout_centerHorizontal="true"
+
+        android:id="@+id/pubButtons"
+        android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/btnPub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:background="@drawable/ic_pub"
+
+            />
+        <ImageButton
+            android:id="@+id/btnAtm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:background="@drawable/ic_atm"
+
+            />
+        <ImageButton
+            android:id="@+id/btnOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:background="@drawable/ic_other"
+
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="0:00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:id="@+id/tv_partyTimeElapsed"
+        android:textSize="60sp"
+        tools:textStyle="bold"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:text="hours    |    minutes    |    seconds \n\n\n\n\n since party start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:textColor ="#4c8678"
+        android:id="@+id/textView6"
+        android:lines="6"
+        android:layout_centerVertical="false" />
+
+</RelativeLayout>

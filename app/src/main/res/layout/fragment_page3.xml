@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen2">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_map_pub"
+        android:layout_marginTop="202dp"
+        android:background="@drawable/ic_pub_map"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/button_gotoPosition" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_map_atm"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_atm_map"
+        android:layout_below="@+id/button_map_pub"
+        android:layout_alignStart="@+id/button_map_pub" />
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_map_other"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_other_map"
+        android:layout_below="@+id/button_map_atm"
+        android:layout_alignStart="@+id/button_map_atm" />
+
+
+
+
+    <Button
+        android:text=""
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/button_gotoPosition"
+        android:background="@drawable/find_on_map"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp" />
+
+
+
+</RelativeLayout>
