@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
@@ -68,6 +71,18 @@ public class Page1Fragment extends Fragment {
     {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         pbi = new PartyButtonItem(getContext(), party);
+        pbi.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Activity act = getActivity();
+            if(act instanceof MainActivity)
+            {
+                ((MainActivity) act).startPartyPresentation(((PartyButtonItem) v).getPartyData());
+
+            }
+
+        }
+    });
         if(active) pbi.setActive();
         pbi.setId(pbi.generateViewId());
 

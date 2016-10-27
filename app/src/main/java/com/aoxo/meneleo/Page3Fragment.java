@@ -48,8 +48,10 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     MarkerOptions marker;
     public LatLng currentPosition;
     Polyline polyline;
+    Polyline tmpPolyline;
     private boolean tracking = false;
     boolean autoMoveToPoint = true;
+    boolean partyPresentation = false;
 
     Button startParty;
     Button pubButton;
@@ -57,10 +59,14 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     Button otherButton;
 
     private PartyData party;
+    private PartyData partyPresentationData;
     private Button gotoPositionButton;
+
+
 
     public Page3Fragment() {
         // Required empty public constructor
+
     }
 
     public void startTracking(PartyData party) {
@@ -169,6 +175,8 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
             @Override
             public void onClick(View v) {
                 autoMoveToPoint = true;
+                partyPresentation = false;
+                redrawMapElements();
 
                 if (currentPosition != null) {
                     CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -237,14 +245,41 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
 
     }
 
+    public void startPartyPresentation(PartyData pdp)
+    {
+        if(pdp.getMapPoints().size()>0) {
+            partyPresentationData = pdp;
+            partyPresentation = true;
+            autoMoveToPoint = false;
+            redrawMapElements();
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(pdp.getMapPoints().get(0)).zoom(17).build();
+            googleMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+        }
+    }
     public void redrawMapElements() {
         googleMap.clear();
         PolylineOptions rectOptions = new PolylineOptions();
-        rectOptions.addAll(party.getMapPoints()).color(Color.BLUE);
+        PolylineOptions rectOptionsPresentation = new PolylineOptions();
+        if(partyPresentation)
+        {
+
+            //rectOptions.addAll(party.getMapPoints()).color(Color.parseColor("#402278d4"));
+            rectOptions.addAll(partyPresentationData.getMapPoints()).color(Color.GREEN);
+
+        }
+        else
+        {
+            rectOptions.addAll(party.getMapPoints()).color(Color.BLUE);
+        }
+
+
 
 
 
         polyline = googleMap.addPolyline(rectOptions);
+        //tmpPolyline = googleMap.addPolyline(rectOptionsPresentation);
 
         for(int i=0; i<party.markersCount; i++)
         {
@@ -257,6 +292,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
         }
+
 
     }
 

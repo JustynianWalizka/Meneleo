@@ -1,5 +1,6 @@
 package com.aoxo.meneleo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +18,7 @@ import java.text.DecimalFormat;
  * Created by tomek on 23.09.2016.
  */
 
-public class PartyButtonItem extends View {
+public class PartyButtonItem extends View implements View.OnClickListener {
 
 
     private final static int WIDTH_PADDING = 30;
@@ -56,10 +57,15 @@ public class PartyButtonItem extends View {
         setFocusable(true);
         setBackgroundColor(Color.WHITE);
         //setOnClickListener(listenerAdapter);
+
         setClickable(true);
 
     }
 
+    public PartyData getPartyData()
+    {
+        return party;
+    }
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -140,6 +146,12 @@ public class PartyButtonItem extends View {
 
                  return measurement;
             }
+
+
+    @Override
+    public void onClick(View v) {
+
+    }
 
 
 }

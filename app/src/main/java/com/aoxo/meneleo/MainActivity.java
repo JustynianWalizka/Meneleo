@@ -76,6 +76,12 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
+    public void startPartyPresentation(PartyData pdp)
+    {
+        Log.i("Zuzka", "wielkosc listy punktow"+pdp.getMapPoints().size());
+        map.startPartyPresentation(pdp);
+        pager.setCurrentItem(2);
+    }
     public void getData(Page3Fragment instance) {
         Log.i("Zuzka", "data request");
         instance.setPosition(50.0357316, 19.9000488);
@@ -391,6 +397,7 @@ public class MainActivity extends FragmentActivity {
                 btnBack.setBackgroundResource(R.drawable.rounded_button);
 
                 btnNext.setVisibility(View.INVISIBLE);
+                btnBack.setVisibility(View.VISIBLE);
                 startGPS(); //samo wylaczy potem gpsa jak ustawi na pozycji
 
             }
