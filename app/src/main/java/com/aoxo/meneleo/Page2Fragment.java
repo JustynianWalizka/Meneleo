@@ -1,9 +1,6 @@
 package com.aoxo.meneleo;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -11,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,9 +21,10 @@ public class Page2Fragment extends Fragment {
     ImageButton pubButton;
     ImageButton atmButton;
     ImageButton otherButton;
-    TextView start_button_msg;
+    TextView counterText;
     TextView tv_partyTimeElapsed;
     private boolean isPartyStarted = false;
+    private LinearLayout LL2;
 
     public Page2Fragment() {
         // Required empty public constructor
@@ -46,11 +43,14 @@ public class Page2Fragment extends Fragment {
 
         startParty = (ImageButton) v.findViewById(R.id.btnStartParty);
         LL = (LinearLayout) v.findViewById(R.id.pubButtons);
+
         LL.setVisibility(View.INVISIBLE);
-        start_button_msg = (TextView) v.findViewById(R.id.l_start_btn_msg);
+        LL2 = (LinearLayout) v.findViewById(R.id.pubButtons2);
+        LL2.setVisibility(View.INVISIBLE);
+        counterText = (TextView) v.findViewById(R.id.counter_text);
         tv_partyTimeElapsed = (TextView) v.findViewById(R.id.tv_partyTimeElapsed) ;
         tv_partyTimeElapsed.setVisibility(View.INVISIBLE);
-
+        counterText.setVisibility(View.INVISIBLE);
 
         startParty.setOnClickListener(new View.OnClickListener()
         {
@@ -69,10 +69,11 @@ public class Page2Fragment extends Fragment {
                     Log.i("dddddddddd", "cos nei tak z activity");
                 }
                 LL.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
-                start_button_msg.setVisibility(isPartyStarted ? View.VISIBLE : View.INVISIBLE);
+                LL2.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
+                counterText.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
                 tv_partyTimeElapsed.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
                 isPartyStarted = !isPartyStarted;
-                startParty.setBackgroundResource(isPartyStarted ? R.drawable.ic_stop_button : R.drawable.start_btn_selector);
+                startParty.setBackgroundResource(isPartyStarted ? R.drawable.ic_stop_btn_normal : R.drawable.start_btn_selector);
 
              }
         });

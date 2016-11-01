@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_screen2">
+    android:background="@drawable/bg_home_screen">
 
 
 
@@ -25,59 +25,138 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/start_btn_selector"
-            android:maxWidth="375px"
-            android:maxHeight="375px"
+            android:maxWidth="450px"
+            android:maxHeight="450px"
 
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="@dimen/desc_padding"
-            android:paddingRight="@dimen/desc_padding"
-            android:text="click to start party"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc"
-            android:id="@+id/l_start_btn_msg" />
+            android:minHeight="175dp"
+            android:minWidth="175dp" />
+
+
 
     </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginBottom="120dp"
+            android:layout_centerHorizontal="true"
+
+            android:id="@+id/pubButtons"
+            android:layout_alignParentBottom="true"
+            android:clipToPadding="false">
+
+
+            <ImageButton
+                android:id="@+id/btn_drink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:background="@drawable/ic_drink_btn_normal"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_beer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:background="@drawable/ic_beer_btn_normal"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_vine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:background="@drawable/ic_vine_btn_normal"
+
+                />
+
+
+
+            <ImageButton
+                android:id="@+id/btnPub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:background="@drawable/ic_pub_btn_normal"/>
+
+
+
+
+
+            />
+            <ImageButton
+                android:id="@+id/btnAtm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:background="@drawable/ic_atm_btn_normal"
+
+                />
+
+        </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
 
-        android:id="@+id/pubButtons"
+        android:id="@+id/pubButtons2"
         android:layout_alignParentBottom="true">
+
+
+
+            />
+
         <ImageButton
-            android:id="@+id/btnPub"
+            android:id="@+id/btn_whiskey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
-            android:background="@drawable/ic_pub"
+            android:background="@drawable/ic_whiskey_btn_normal"
 
-            />
+            android:layout_weight="1" />
         <ImageButton
-            android:id="@+id/btnAtm"
+            android:id="@+id/btn_konak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
-            android:background="@drawable/ic_atm"
+            android:background="@drawable/ic_konak_btn_normal"
 
             />
+
+        <ImageButton
+            android:id="@+id/btn_vodka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:background="@drawable/ic_vodka_btn_normal"
+
+            android:layout_weight="1" />
+
+
+
+
         <ImageButton
             android:id="@+id/btnOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
-            android:background="@drawable/ic_other"
+            android:background="@drawable/ic_place_btn_normal"/>
 
-            />
+
 
     </LinearLayout>
+
 
     <TextView
         android:text="0:00:00"
@@ -85,7 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="65dp"
         android:id="@+id/tv_partyTimeElapsed"
         android:textSize="60sp"
         tools:textStyle="bold"
@@ -98,9 +177,9 @@
         android:layout_alignParentTop="true"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
-        android:textColor ="#4c8678"
-        android:id="@+id/textView6"
+        android:layout_marginTop="55dp"
+        android:textColor ="@color/wallet_dim_foreground_disabled_holo_dark"
+        android:id="@+id/counter_text"
         android:lines="6"
         android:layout_centerVertical="false" />
 
