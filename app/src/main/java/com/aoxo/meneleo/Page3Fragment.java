@@ -1,40 +1,30 @@
 package com.aoxo.meneleo;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.GoogleMap.CancelableCallback;
 import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener;
 import com.google.android.gms.maps.GoogleMap.OnCameraMoveCanceledListener;
 import com.google.android.gms.maps.GoogleMap.OnCameraMoveListener;
 import com.google.android.gms.maps.GoogleMap.OnCameraMoveStartedListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Page3Fragment extends Fragment implements OnCameraMoveStartedListener,
@@ -130,47 +120,11 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         //googleMap = mMapView.getMap();
         mMapView.getMapAsync(this);
 
-        pubButton = (Button) v.findViewById(R.id.button_map_pub);
-        atmButton = (Button) v.findViewById(R.id.button_map_atm);
-        otherButton = (Button) v.findViewById(R.id.button_map_other);
+
         gotoPositionButton = (Button) v.findViewById(R.id.button_gotoPosition);
 
 
-        pubButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity act = getActivity();
-                if (act instanceof MainActivity) {
-
-                    ((MainActivity) act).setMarker(1, "Pub");
-
-                }
-            }
-        });
-
-        atmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity act = getActivity();
-                if (act instanceof MainActivity) {
-
-                    ((MainActivity) act).setMarker(1, "Bankomat");
-
-                }
-            }
-        });
-
-        otherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity act = getActivity();
-                if (act instanceof MainActivity) {
-
-                    ((MainActivity) act).setMarker(1, "Inne");
-
-                }
-            }
-        });
+       
         gotoPositionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,9 +15,9 @@
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button_map_pub"
+        android:id="@+id/button_map_add_place_to_map"
         android:layout_marginTop="202dp"
-        android:background="@drawable/ic_pub_map"
+        android:background="@drawable/ic_add_place_btn_normal"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/button_gotoPosition" />
 
@@ -25,20 +25,30 @@
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button_map_atm"
+        android:id="@+id/button_map_add_drink"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ic_atm_map"
-        android:layout_below="@+id/button_map_pub"
-        android:layout_alignStart="@+id/button_map_pub" />
+        android:background="@drawable/ic_add_drink_btn_normal"
+        android:layout_below="@+id/button_map_add_place_to_map"
+        android:layout_alignStart="@+id/button_map_add_place_to_map" />
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button_map_other"
+        android:id="@+id/button_map_friends"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ic_other_map"
-        android:layout_below="@+id/button_map_atm"
-        android:layout_alignStart="@+id/button_map_atm" />
+        android:background="@drawable/ic_friends_btn_normal"
+        android:layout_below="@+id/button_map_add_drink"
+        android:layout_alignStart="@+id/button_map_add_drink" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_map_places"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_places_btn_normal"
+        android:layout_below="@+id/button_map_friends"
+        android:layout_alignStart="@+id/button_map_add_drink" />
 
 
 
@@ -53,6 +63,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp" />
+
 
 
 
