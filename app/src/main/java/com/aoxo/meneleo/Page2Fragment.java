@@ -109,7 +109,8 @@ public class Page2Fragment extends Fragment {
         LL2.setAlpha(0);
         LL.setEnabled(false);
         LL2.setEnabled(false);
-
+        LL.setVisibility(View.INVISIBLE);
+        LL2.setVisibility(View.INVISIBLE);
 
         pubButton = (ImageButton) v.findViewById(R.id.btnPub);
         atmButton = (ImageButton) v.findViewById(R.id.btnAtm);
