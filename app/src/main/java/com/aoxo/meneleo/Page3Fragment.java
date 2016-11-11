@@ -124,7 +124,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         gotoPositionButton = (Button) v.findViewById(R.id.button_gotoPosition);
 
 
-       
+
         gotoPositionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

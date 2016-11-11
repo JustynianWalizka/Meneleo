@@ -13,9 +13,8 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp">
 
 
         <ImageButton
@@ -32,7 +31,6 @@
             android:minWidth="175dp" />
 
 
-
     </LinearLayout>
 
 
@@ -41,12 +39,13 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:layout_marginBottom="120dp"
+            android:layout_marginBottom="285dp"
             android:layout_centerHorizontal="true"
 
             android:id="@+id/pubButtons"
             android:layout_alignParentBottom="true"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:visibility="visible">
 
 
             <ImageButton
@@ -107,11 +106,12 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="210dp"
         android:layout_centerHorizontal="true"
 
         android:id="@+id/pubButtons2"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:visibility="visible">
 
 
 
@@ -182,5 +182,14 @@
         android:id="@+id/counter_text"
         android:lines="6"
         android:layout_centerVertical="false" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/btn_main_show"
+        android:background="@drawable/ic_show_normal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
