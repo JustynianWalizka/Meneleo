@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/meneleo2_icon"
         android:label="Meneleo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
