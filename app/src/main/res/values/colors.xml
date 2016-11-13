@@ -17,6 +17,7 @@
     <color name="dot_dark_screen4">#a854d4</color>
 
     <!-- dots active colors -->
+    <color name="gray">#1c1d1d</color>
     <color name="dot_light_screen1">#f98da5</color>
     <color name="dot_light_screen2">#8cf9eb</color>
     <color name="dot_light_screen3">#93c6fd</color>

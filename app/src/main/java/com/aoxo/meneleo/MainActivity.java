@@ -131,17 +131,7 @@ public class MainActivity extends FragmentActivity {
 
     public void mapReady(Page3Fragment fragment) {
         map = fragment;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        map.googleMap.setMyLocationEnabled(true);
+
     }
 
     public void startPageReady(Page2Fragment fragment) {
@@ -309,6 +299,20 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    private void initializeMapLocationSettings()
+    {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.googleMap.setMyLocationEnabled(true);
+    }
     private int getItem(int i) {
         return pager.getCurrentItem() + i;
     }
@@ -322,16 +326,8 @@ public class MainActivity extends FragmentActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                  /*  locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                        return;
-                    }
-                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Log.i("Zuzka", "GIEPEES jest wlaczony");
-                    }
 
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);*/
                     Log.i("Zuzka", "Permission granted for location");
 
                 } else {
@@ -394,6 +390,7 @@ public class MainActivity extends FragmentActivity {
             if(position==2)
             {
                 Log.i("Zuzka", " strona z mapa");
+                initializeMapLocationSettings();
                 btnBack.setBackgroundResource(R.drawable.rounded_button);
 
                 btnNext.setVisibility(View.INVISIBLE);
