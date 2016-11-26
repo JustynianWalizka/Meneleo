@@ -43,14 +43,13 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     boolean autoMoveToPoint = true;
     boolean partyPresentation = false;
 
-    Button startParty;
-    Button pubButton;
-    Button atmButton;
-    Button otherButton;
+    Button btn_show_layers;
+    Button btn_add_thing;
+
 
     private PartyData party;
     private PartyData partyPresentationData;
-    private Button gotoPositionButton;
+    private Button btn_goToPosition;
 
 
 
@@ -121,11 +120,14 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         mMapView.getMapAsync(this);
 
 
-        gotoPositionButton = (Button) v.findViewById(R.id.button_gotoPosition);
+
+        btn_goToPosition = (Button) v.findViewById(R.id.button_gotoPosition);
+        btn_add_thing = (Button) v.findViewById(R.id.btn_add_thing);
+        btn_show_layers = (Button) v.findViewById(R.id.btn_show_layers);
 
 
 
-        gotoPositionButton.setOnClickListener(new View.OnClickListener() {
+        btn_goToPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 autoMoveToPoint = true;

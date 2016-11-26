@@ -6,52 +6,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <Button
-        android:text=""
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/button_map_add_place_to_map"
-        android:layout_marginTop="202dp"
-        android:background="@drawable/ic_add_place_btn_normal"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/button_gotoPosition" />
-
-    <Button
-        android:text=""
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/button_map_add_drink"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_add_drink_btn_normal"
-        android:layout_below="@+id/button_map_add_place_to_map"
-        android:layout_alignStart="@+id/button_map_add_place_to_map" />
-    <Button
-        android:text=""
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/button_map_friends"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_friends_btn_normal"
-        android:layout_below="@+id/button_map_add_drink"
-        android:layout_alignStart="@+id/button_map_add_drink" />
-
-    <Button
-        android:text=""
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/button_map_places"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_places_btn_normal"
-        android:layout_below="@+id/button_map_friends"
-        android:layout_alignStart="@+id/button_map_add_drink" />
-
-
-
 
     <Button
         android:text=""
@@ -64,7 +18,126 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp" />
 
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_show_layers"
+        android:background="@drawable/ic_show_layers_btn_normal"
+        android:layout_alignBottom="@+id/button_gotoPosition"
+        android:layout_alignEnd="@+id/button_gotoPosition"
+        android:layout_marginBottom="115dp" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_add_thing"
+        android:background="@drawable/ic_add_place_btn_normal"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/btn_show_layers"
+        android:layout_alignStart="@+id/btn_show_layers" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button4"
+        android:background="@drawable/ic_pub"
+
+        android:layout_alignBottom="@+id/btn_add_thing"
+        android:layout_toStartOf="@+id/button_gotoPosition"
+         />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button3"
+        android:background="@drawable/ic_atm"
 
 
+
+        android:layout_alignBottom="@+id/button4"
+        android:layout_toStartOf="@+id/button4"
+        android:layout_marginEnd="10dp" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button5"
+        android:background="@drawable/ic_other"
+
+
+        android:layout_marginEnd="10dp"
+
+        android:layout_alignBottom="@+id/button3"
+        android:layout_toStartOf="@+id/button3" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button7"
+        android:background="@drawable/ic_other"
+        android:layout_above="@+id/button5"
+        android:layout_alignStart="@+id/button5"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button8"
+        android:background="@drawable/ic_other"
+        android:layout_above="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button9"
+        android:background="@drawable/ic_other"
+        android:layout_above="@+id/button4"
+        android:layout_alignStart="@+id/button4"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button10"
+        android:background="@drawable/ic_other"
+        android:layout_below="@+id/button4"
+        android:layout_alignStart="@+id/button4"
+        android:layout_marginTop="10dp" />
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button11"
+        android:background="@drawable/ic_other"
+        android:layout_below="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginTop="10dp" />
+    <Button
+        android:text=""
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button12"
+        android:background="@drawable/ic_other"
+        android:layout_below="@+id/button5"
+        android:layout_alignStart="@+id/button5"
+        android:layout_marginTop="10dp" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
