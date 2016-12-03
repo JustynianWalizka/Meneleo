@@ -42,9 +42,21 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     private boolean tracking = false;
     boolean autoMoveToPoint = true;
     boolean partyPresentation = false;
+    boolean showPlaces = false;
 
     Button btn_show_layers;
     Button btn_add_thing;
+
+    Button btn_add_pub;
+    Button btn_add_atm;
+    Button btn_add_other;
+    Button btn_add_beer;
+    Button btn_add_drink;
+    Button btn_add_vine;
+    Button btn_add_cognac;
+    Button btn_add_whiskey;
+    Button btn_add_vodka;
+
 
 
     private PartyData party;
@@ -56,6 +68,44 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     public Page3Fragment() {
         // Required empty public constructor
 
+    }
+
+    public void set_visibility_of_place_buttons(boolean visibility)
+    {
+        btn_add_pub.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_atm.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_other.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_beer.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_drink.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_vine.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_cognac.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_whiskey.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_vodka.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+    }
+    public void show_place_buttons()
+    {
+        btn_add_pub.setVisibility(View.VISIBLE);
+        btn_add_atm.setVisibility(View.VISIBLE);
+        btn_add_other.setVisibility(View.VISIBLE);
+        btn_add_beer.setVisibility(View.VISIBLE);
+        btn_add_drink.setVisibility(View.VISIBLE);
+        btn_add_vine.setVisibility(View.VISIBLE);
+        btn_add_cognac.setVisibility(View.VISIBLE);
+        btn_add_whiskey.setVisibility(View.VISIBLE);
+        btn_add_vodka.setVisibility(View.VISIBLE);
+    }
+
+    public void hide_place_buttons()
+    {
+        btn_add_pub.setVisibility(View.INVISIBLE);
+        btn_add_atm.setVisibility(View.INVISIBLE);
+        btn_add_other.setVisibility(View.INVISIBLE);
+        btn_add_beer.setVisibility(View.INVISIBLE);
+        btn_add_drink.setVisibility(View.INVISIBLE);
+        btn_add_vine.setVisibility(View.INVISIBLE);
+        btn_add_cognac.setVisibility(View.INVISIBLE);
+        btn_add_whiskey.setVisibility(View.INVISIBLE);
+        btn_add_vodka.setVisibility(View.INVISIBLE);
     }
 
     public void startTracking(PartyData party) {
@@ -125,7 +175,17 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         btn_add_thing = (Button) v.findViewById(R.id.btn_add_thing);
         btn_show_layers = (Button) v.findViewById(R.id.btn_show_layers);
 
+        btn_add_pub = (Button) v.findViewById(R.id.btn_add_pub);
+        btn_add_atm = (Button) v.findViewById(R.id.btn_add_atm);
+        btn_add_other = (Button) v.findViewById(R.id.btn_add_other);
+        btn_add_beer = (Button) v.findViewById(R.id.btn_add_beer);
+        btn_add_drink = (Button) v.findViewById(R.id.btn_add_drink);
+        btn_add_vine = (Button) v.findViewById(R.id.btn_add_vine);
+        btn_add_cognac = (Button) v.findViewById(R.id.btn_add_coniac);
+        btn_add_whiskey = (Button) v.findViewById(R.id.btn_add_whiskey);
+        btn_add_vodka  = (Button) v.findViewById(R.id.btn_add_vodka);
 
+        set_visibility_of_place_buttons(false);
 
         btn_goToPosition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +201,15 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
                     googleMap.animateCamera(CameraUpdateFactory
                             .newCameraPosition(cameraPosition));
                 }
+
+            }
+        });
+        btn_add_thing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPlaces = !showPlaces;
+
+               set_visibility_of_place_buttons(showPlaces);
 
             }
         });

@@ -42,8 +42,8 @@
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button4"
-        android:background="@drawable/ic_pub"
+        android:id="@+id/btn_add_beer"
+        android:background="@drawable/btn_beer_map"
 
         android:layout_alignBottom="@+id/btn_add_thing"
         android:layout_toStartOf="@+id/button_gotoPosition"
@@ -53,84 +53,84 @@
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button3"
-        android:background="@drawable/ic_atm"
+        android:id="@+id/btn_add_drink"
+        android:background="@drawable/btn_drink_map"
 
 
 
-        android:layout_alignBottom="@+id/button4"
-        android:layout_toStartOf="@+id/button4"
+        android:layout_alignBottom="@+id/btn_add_beer"
+        android:layout_toStartOf="@+id/btn_add_beer"
         android:layout_marginEnd="10dp" />
 
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button5"
-        android:background="@drawable/ic_other"
+        android:id="@+id/btn_add_coniac"
+        android:background="@drawable/btn_koniak_map"
 
 
         android:layout_marginEnd="10dp"
 
-        android:layout_alignBottom="@+id/button3"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_alignBottom="@+id/btn_add_drink"
+        android:layout_toStartOf="@+id/btn_add_drink" />
 
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button7"
-        android:background="@drawable/ic_other"
-        android:layout_above="@+id/button5"
-        android:layout_alignStart="@+id/button5"
+        android:id="@+id/btn_add_pub"
+        android:background="@drawable/btn_pub_map"
+        android:layout_above="@+id/btn_add_coniac"
+        android:layout_alignStart="@+id/btn_add_coniac"
         android:layout_marginBottom="10dp" />
 
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button8"
-        android:background="@drawable/ic_other"
-        android:layout_above="@+id/button3"
-        android:layout_alignStart="@+id/button3"
+        android:id="@+id/btn_add_atm"
+        android:background="@drawable/btn_coolplace_map"
+        android:layout_above="@+id/btn_add_drink"
+        android:layout_alignStart="@+id/btn_add_drink"
         android:layout_marginBottom="10dp" />
 
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button9"
-        android:background="@drawable/ic_other"
-        android:layout_above="@+id/button4"
-        android:layout_alignStart="@+id/button4"
+        android:id="@+id/btn_add_other"
+        android:background="@drawable/btn_other_map"
+        android:layout_above="@+id/btn_add_beer"
+        android:layout_alignStart="@+id/btn_add_beer"
         android:layout_marginBottom="10dp" />
 
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button10"
-        android:background="@drawable/ic_other"
-        android:layout_below="@+id/button4"
-        android:layout_alignStart="@+id/button4"
+        android:id="@+id/btn_add_vodka"
+        android:background="@drawable/btn_vodka_map"
+        android:layout_below="@+id/btn_add_beer"
+        android:layout_alignStart="@+id/btn_add_beer"
         android:layout_marginTop="10dp" />
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button11"
-        android:background="@drawable/ic_other"
-        android:layout_below="@+id/button3"
-        android:layout_alignStart="@+id/button3"
+        android:id="@+id/btn_add_vine"
+        android:background="@drawable/btn_vine_map"
+        android:layout_below="@+id/btn_add_drink"
+        android:layout_alignStart="@+id/btn_add_drink"
         android:layout_marginTop="10dp" />
     <Button
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/button12"
-        android:background="@drawable/ic_other"
-        android:layout_below="@+id/button5"
-        android:layout_alignStart="@+id/button5"
+        android:id="@+id/btn_add_whiskey"
+        android:background="@drawable/btn_whiskey_map"
+        android:layout_below="@+id/btn_add_coniac"
+        android:layout_alignStart="@+id/btn_add_coniac"
         android:layout_marginTop="10dp" />
 
     <com.google.android.gms.maps.MapView

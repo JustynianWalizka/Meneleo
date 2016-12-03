@@ -68,10 +68,10 @@ public class PartyData {
         location=point;
     }
 
-    public void setMarker(int type, String description)
+    public void setMarker(MapPlaceType mp, String description)
     {
 
-        markers.add(new MarkerData(type,location,description,c.getTime()));
+        markers.add(new MarkerData(mp,location,description,c.getTime()));
         markersCount++;
     }
 

@@ -21,7 +21,7 @@ public class Page2Fragment extends Fragment {
     LinearLayout LL;
     ImageButton startParty;
     ImageButton pubButton;
-    ImageButton atmButton;
+    ImageButton btn_coolplace;
     ImageButton otherButton;
     ImageButton showButton;
     TextView counterText;
@@ -113,7 +113,7 @@ public class Page2Fragment extends Fragment {
         LL2.setVisibility(View.INVISIBLE);
 
         pubButton = (ImageButton) v.findViewById(R.id.btnPub);
-        atmButton = (ImageButton) v.findViewById(R.id.btnAtm);
+        btn_coolplace = (ImageButton) v.findViewById(R.id.btnAtm);
         otherButton = (ImageButton) v.findViewById(R.id.btnOther);
         showButton = (ImageButton) v.findViewById(R.id.btn_main_show);
         showButton.setVisibility(View.INVISIBLE);
@@ -177,13 +177,13 @@ public class Page2Fragment extends Fragment {
                 Activity act = getActivity();
                 if(act instanceof MainActivity) {
 
-                    ((MainActivity) act).setMarker(1,"Pub");
+                    ((MainActivity) act).setMarker(MapPlaceType.PUB,"Pub");
 
                 }
             }
         });
 
-        atmButton.setOnClickListener(new View.OnClickListener()
+        btn_coolplace.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -191,7 +191,7 @@ public class Page2Fragment extends Fragment {
                 Activity act = getActivity();
                 if(act instanceof MainActivity) {
 
-                    ((MainActivity) act).setMarker(1,"Bankomat");
+                    ((MainActivity) act).setMarker(MapPlaceType.COOLPLACE,"Cool place!");
 
                 }
             }
@@ -205,7 +205,7 @@ public class Page2Fragment extends Fragment {
                 Activity act = getActivity();
                 if(act instanceof MainActivity) {
 
-                    ((MainActivity) act).setMarker(1,"Inne");
+                    ((MainActivity) act).setMarker(MapPlaceType.OTHER,"Inne");
 
                 }
             }

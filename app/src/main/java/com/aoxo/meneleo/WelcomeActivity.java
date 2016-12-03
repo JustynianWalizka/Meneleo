@@ -64,7 +64,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
-
+    //zuzeczka tu byla :*
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -88,8 +88,8 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void setMarker(int type, String description) {
-        party.setMarker(type, description);
+    public void setMarker(MapPlaceType mp, String description) {
+        party.setMarker(mp, description);
         map.redrawMapElements();
     }
 

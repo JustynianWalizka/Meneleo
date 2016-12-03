@@ -1,5 +1,6 @@
 package com.aoxo.meneleo;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -7,13 +8,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by tomek on 09.10.2016.
- */
-
 public class MarkerData {
 
-    int type;
+
     LatLng location;
     String description;
     MarkerOptions marker;
@@ -21,20 +18,45 @@ public class MarkerData {
     private String dateFormat = "dd-MMM-yyyy";
 
 
-    public MarkerData(int type, LatLng location, String description, Date date)
+    public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
     {
         SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 
+        BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker();
         this.date = date;
-        this.type = type;
+
         this.location = location;
-        this.description = description+ "\n" + df.format(date);;
+        this.description = description+ "\n" + df.format(date);
         marker = new MarkerOptions().position(
                 location).title(description);
 
         // Changing marker icon
-        marker.icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+        switch(mp)
+        {
+            case PUB:       icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_pub);
+                break;
+            case COOLPLACE: icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_coolplace);
+                break;
+            case OTHER:     icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_other);
+                break;
+            case BEER:      icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_beer);
+                break;
+            case VODKA:     icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_vodka);
+                break;
+            case WHISKY:    icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_whiskey);
+                break;
+            case VINE:      icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_vine);
+                break;
+            case COGNAC:    icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_cognac);
+                break;
+            case DRINK:     icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_drink);
+                break;
+            default:        icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_default);
+                break;
+
+
+        }
+        marker.icon(icon);
 
     }
 
