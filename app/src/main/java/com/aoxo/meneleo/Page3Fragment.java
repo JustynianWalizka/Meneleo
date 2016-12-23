@@ -48,7 +48,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     Button btn_add_thing;
 
     Button btn_add_pub;
-    Button btn_add_atm;
+    Button btn_add_cp;
     Button btn_add_other;
     Button btn_add_beer;
     Button btn_add_drink;
@@ -73,7 +73,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     public void set_visibility_of_place_buttons(boolean visibility)
     {
         btn_add_pub.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
-        btn_add_atm.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+        btn_add_cp.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
         btn_add_other.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
         btn_add_beer.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
         btn_add_drink.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
@@ -85,7 +85,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     public void show_place_buttons()
     {
         btn_add_pub.setVisibility(View.VISIBLE);
-        btn_add_atm.setVisibility(View.VISIBLE);
+        btn_add_cp.setVisibility(View.VISIBLE);
         btn_add_other.setVisibility(View.VISIBLE);
         btn_add_beer.setVisibility(View.VISIBLE);
         btn_add_drink.setVisibility(View.VISIBLE);
@@ -98,7 +98,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
     public void hide_place_buttons()
     {
         btn_add_pub.setVisibility(View.INVISIBLE);
-        btn_add_atm.setVisibility(View.INVISIBLE);
+        btn_add_cp.setVisibility(View.INVISIBLE);
         btn_add_other.setVisibility(View.INVISIBLE);
         btn_add_beer.setVisibility(View.INVISIBLE);
         btn_add_drink.setVisibility(View.INVISIBLE);
@@ -176,7 +176,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         btn_show_layers = (Button) v.findViewById(R.id.btn_show_layers);
 
         btn_add_pub = (Button) v.findViewById(R.id.btn_add_pub);
-        btn_add_atm = (Button) v.findViewById(R.id.btn_add_atm);
+        btn_add_cp = (Button) v.findViewById(R.id.btn_add_cp);
         btn_add_other = (Button) v.findViewById(R.id.btn_add_other);
         btn_add_beer = (Button) v.findViewById(R.id.btn_add_beer);
         btn_add_drink = (Button) v.findViewById(R.id.btn_add_drink);
@@ -186,6 +186,9 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         btn_add_vodka  = (Button) v.findViewById(R.id.btn_add_vodka);
 
         set_visibility_of_place_buttons(false);
+
+
+
 
         btn_goToPosition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,9 +217,135 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
             }
         });
 
+        btn_add_pub.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.PUB,"Pub");
+
+                }
+            }
+        });
+
+        btn_add_cp.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.COOLPLACE,"Cool place");
+
+                }
+            }
+        });
+
+        btn_add_other.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.OTHER,"Other");
+
+                }
+            }
+        });
+
+        btn_add_beer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.BEER,"Beer");
+
+                }
+            }
+        });
+
+        btn_add_drink.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.DRINK,"Drink");
+
+                }
+            }
+        });
+
+        btn_add_vine.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.VINE,"Vine");
+
+                }
+            }
+        });
+
+        btn_add_cognac.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.COGNAC,"Cognac");
+
+                }
+            }
+        });
+
+        btn_add_whiskey.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.WHISKY,"Whisky");
+
+                }
+            }
+        });
+
+        btn_add_vodka.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.VODKA,"Vodka");
+
+                }
+            }
+        });
 
         return v;
     }
+
 
 
     public void setPosition(double lat, double lon) {

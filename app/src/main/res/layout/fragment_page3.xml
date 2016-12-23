@@ -89,7 +89,7 @@
         android:text=""
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/btn_add_atm"
+        android:id="@+id/btn_add_cp"
         android:background="@drawable/btn_coolplace_map"
         android:layout_above="@+id/btn_add_drink"
         android:layout_alignStart="@+id/btn_add_drink"
