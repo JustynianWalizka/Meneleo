@@ -15,7 +15,7 @@ public class MarkerData {
     String description;
     MarkerOptions marker;
     Date date;
-    private String dateFormat = "dd-MMM-yyyy";
+    private String dateFormat = "h:mm a";
 
 
     public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
@@ -26,9 +26,9 @@ public class MarkerData {
         this.date = date;
 
         this.location = location;
-        this.description = description+ "\n" + df.format(date);
+        this.description = description;
         marker = new MarkerOptions().position(
-                location).title(description);
+                location).title(description).snippet(df.format(date));
 
         // Changing marker icon
         switch(mp)

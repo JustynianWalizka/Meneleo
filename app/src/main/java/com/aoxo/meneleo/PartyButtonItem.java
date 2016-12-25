@@ -73,7 +73,9 @@ public class PartyButtonItem extends View implements View.OnClickListener {
         Log.d("CDA", "draw called on party button");
         if(active)
         {
-            this.setBackgroundColor(Color.GREEN);
+           // this.setBackgroundColor(Color.GREEN);
+           // this.setBackgroundResource(R.drawable.bg_1);
+            this.setBackgroundColor(Color.WHITE);
         }
         else
         {
