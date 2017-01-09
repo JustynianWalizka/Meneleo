@@ -352,7 +352,19 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         if (tracking) {
 
             currentPosition = new LatLng(lat, lon);
+
             party.setTrackPoint(currentPosition);
+            if(party.getMapPoints().size()==1)
+            {
+
+                Activity act = getActivity();
+                if(act instanceof MainActivity) {
+
+                    ((MainActivity) act).setMarker(MapPlaceType.START,"Start");
+
+                }
+
+            }
             //mapPoints.add(currentPosition);
             redrawMapElements();
             Activity act = getActivity();

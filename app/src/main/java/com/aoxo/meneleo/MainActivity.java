@@ -116,6 +116,7 @@ public class MainActivity extends FragmentActivity {
             stopGPS();
             h2.removeCallbacks(run);
             map.stopTracking();
+            setMarker(MapPlaceType.END, "End of party");
 
         }
 

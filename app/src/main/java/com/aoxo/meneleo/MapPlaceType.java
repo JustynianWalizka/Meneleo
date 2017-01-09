@@ -12,5 +12,7 @@ public enum MapPlaceType {
     WHISKY,
     VINE,
     COGNAC,
-    DRINK
+    DRINK,
+    START,
+    END
 }

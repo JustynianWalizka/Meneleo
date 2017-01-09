@@ -51,6 +51,10 @@ public class MarkerData {
                 break;
             case DRINK:     icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_drink);
                 break;
+            case START:     icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_start);
+                break;
+            case END:       icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_finish);
+                break;
             default:        icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_default);
                 break;
 
