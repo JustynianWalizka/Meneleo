@@ -180,7 +180,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.viewpager_layout);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         initializePaging();
-        checkPermissions();
+        //checkPermissions();
         initializeLocationServices();
 
         // KURWA!!
@@ -239,7 +239,7 @@ public class MainActivity extends FragmentActivity {
         if (dots.length > 0)
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
-    private void checkPermissions()
+    /*private void checkPermissions()
     {
         Log.i("Zuzka", "Check if we have permission for GPS");
 
@@ -259,7 +259,7 @@ public class MainActivity extends FragmentActivity {
         {
             Log.i("Zuzka", "jest zgoda na gps");
         }
-    }
+    }*/
     private void initializeLocationServices() {
         locationListener = new LocationListener() {
             @Override
@@ -318,7 +318,7 @@ public class MainActivity extends FragmentActivity {
         return pager.getCurrentItem() + i;
     }
 
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         Log.i("Zuzka", "Przyszedl request code: " + requestCode);
         switch (requestCode) {
@@ -342,7 +342,7 @@ public class MainActivity extends FragmentActivity {
             // permissions this app might request
         }
     }
-
+*/
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
