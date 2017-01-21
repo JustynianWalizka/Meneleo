@@ -2,6 +2,7 @@ package com.aoxo.meneleo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,12 +75,15 @@ public class Page1Fragment extends Fragment {
         pbi.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Activity act = getActivity();
+           /* Activity act = getActivity();
             if(act instanceof MainActivity)
             {
                 ((MainActivity) act).startPartyPresentation(((PartyButtonItem) v).getPartyData());
 
-            }
+            }*/
+
+                Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
+                startActivity(intent);
 
         }
     });
