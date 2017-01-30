@@ -11,12 +11,12 @@ import java.util.Date;
 public class MarkerData {
 
 
-    LatLng location;
-    String description;
-    MarkerOptions marker;
-    Date date;
+    public LatLng location;
+    public String description;
+    public MarkerOptions marker;
+    public Date date;
     private String dateFormat = "h:mm a";
-    MapPlaceType markerType;
+    private MapPlaceType markerType;
 
 
     public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
