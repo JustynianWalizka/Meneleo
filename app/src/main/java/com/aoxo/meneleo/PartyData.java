@@ -27,6 +27,7 @@ public class PartyData {
     private String dateFormat = "dd-MMM-yyyy";
     public int markersCount = 0;
     public LatLng location;
+    public int state; // status imprezy.
 
 
     public PartyData()
@@ -37,7 +38,15 @@ public class PartyData {
 
         markers = new ArrayList<MarkerData>();
         mapPoints = new ArrayList<>();
+        state = 0;
+    }
 
+    public PartyData(long uid, List<LatLng> mapPoints, List<MarkerData> markers, int state)
+    {
+        this.uid = uid;
+        this.mapPoints = mapPoints;
+        this.markers = markers;
+        this.state = state;
     }
 
     public String getStartDateString()

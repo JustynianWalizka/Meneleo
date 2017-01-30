@@ -16,12 +16,13 @@ public class MarkerData {
     MarkerOptions marker;
     Date date;
     private String dateFormat = "h:mm a";
+    MapPlaceType markerType;
 
 
     public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
     {
         SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-
+        markerType = mp;
         BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker();
         this.date = date;
 
