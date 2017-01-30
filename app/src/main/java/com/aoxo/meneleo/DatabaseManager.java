@@ -11,6 +11,8 @@ import java.util.Vector;
 
 public class DatabaseManager {
 
+    //KOCHANY TOMECZEK
+
     private void createDatabase()
     {
 
