@@ -17,6 +17,7 @@ public class MarkerData {
     public Date date;
     private String dateFormat = "h:mm a";
     private MapPlaceType markerType;
+    private int indexOnMapPoints;
 
 
     public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
