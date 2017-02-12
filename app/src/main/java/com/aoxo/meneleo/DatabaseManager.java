@@ -1,5 +1,10 @@
 package com.aoxo.meneleo;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
@@ -9,21 +14,46 @@ import java.util.Vector;
  * Created by tomek on 27.10.2016.
  */
 
-public class DatabaseManager {
+public class DatabaseManager extends SQLiteOpenHelper{
 
-    //KOCHANY TOMECZEK
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "meneleo.db";
+    public static final String TABLE_PARTYDATA = "PartyData";
+    public static final String COLUMN_UID = "uid";
+    public static final String COLUMN_STATE = "state";
+    public static final String COLUMN_MARKERS = "markers";
+    public static final String COLUMN_MAPPOINTS = "mappoints";
 
-    private void createDatabase()
-    {
+    public static final String TAG_DB = "DB";
 
-    }
+    public DatabaseManager(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
-    public DatabaseManager(String username)
-    {
         /*
         Tutaj tworzymy baze danych. Jesli dana tabela nie istnieje dla danego uzytkownika to ja tworzymy
         uzywajac funkcji createDatabase();
          */
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String query = "CREATE TABLE " + TABLE_PARTYDATA + " (" +
+                COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+                COLUMN_STATE + " BIT " +
+                COLUMN_MARKERS + /* to do: type of data (MarkerData list) */
+                COLUMN_MAPPOINTS + /*to do: type of data (LatLng list) */
+                ")";
+
+        db.execSQL(query);
+        Log.d(TAG_DB, "PartyData created");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String query = "DROP TABLE IF EXISTS " + TABLE_PARTYDATA;
+
+        db.execSQL(query);
+        onCreate(db);
     }
 
     /*
@@ -85,5 +115,4 @@ public class DatabaseManager {
     {
 
     }
-
 }
