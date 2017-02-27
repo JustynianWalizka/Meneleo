@@ -27,12 +27,12 @@ import java.util.Arrays;
 import java.util.Vector;
 
 
-public class Page1Fragment extends Fragment {
+public class ScreenProfile extends Fragment {
 
     private View v;
     private Vector<PartyButtonItem> elements = new Vector<PartyButtonItem>();
     private PartyButtonItem pbi;
-    public Page1Fragment() {
+    public ScreenProfile() {
         // Required empty public constructor
     }
 
@@ -72,21 +72,18 @@ public class Page1Fragment extends Fragment {
     {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         pbi = new PartyButtonItem(getContext(), party);
-        pbi.setOnClickListener(new View.OnClickListener() {
+       /* pbi.setOnClickListener(new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
-           /* Activity act = getActivity();
-            if(act instanceof MainActivity)
-            {
-                ((MainActivity) act).startPartyPresentation(((PartyButtonItem) v).getPartyData());
 
-            }*/
 
                 Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
+                intent.putExtra("partyData", );
                 startActivity(intent);
 
         }
-    });
+    });*/
         if(active) pbi.setActive();
         pbi.setId(pbi.generateViewId());
 

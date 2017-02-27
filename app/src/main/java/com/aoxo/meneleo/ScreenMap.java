@@ -27,7 +27,7 @@ import com.google.android.gms.maps.GoogleMap.OnCameraMoveListener;
 import com.google.android.gms.maps.GoogleMap.OnCameraMoveStartedListener;
 
 
-public class Page3Fragment extends Fragment implements OnCameraMoveStartedListener,
+public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
         OnCameraMoveListener,
         OnCameraMoveCanceledListener,
         OnCameraIdleListener,
@@ -65,7 +65,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
 
 
 
-    public Page3Fragment() {
+    public ScreenMap() {
         // Required empty public constructor
 
     }
@@ -349,6 +349,7 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
 
 
     public void setPosition(double lat, double lon) {
+        Log.i("Zuzka", "setting position: "+lat+" "+lon);
         if (tracking) {
 
             currentPosition = new LatLng(lat, lon);
@@ -447,7 +448,8 @@ public class Page3Fragment extends Fragment implements OnCameraMoveStartedListen
         polyline = googleMap.addPolyline(rectOptions);
         //tmpPolyline = googleMap.addPolyline(rectOptionsPresentation);
 
-        for(int i=0; i<party.markersCount; i++)
+        Log.i("Zuzka", "dlugosc map points: "+party.getMapPoints().size());
+        for(int i=0; i<party.getMarkers().size(); i++)
         {
             googleMap.addMarker(party.getMarkers().get(i).getMarker());
         }

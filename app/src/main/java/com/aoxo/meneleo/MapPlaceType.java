@@ -14,5 +14,6 @@ public enum MapPlaceType {
     COGNAC,
     DRINK,
     START,
-    END
+    END,
+    NOW
 }

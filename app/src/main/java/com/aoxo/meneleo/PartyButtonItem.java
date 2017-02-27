@@ -2,6 +2,7 @@ package com.aoxo.meneleo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -54,6 +55,9 @@ public class PartyButtonItem extends View implements View.OnClickListener {
         this.party = party;
         this.label = "dupatest";
         this.globe_icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_globe_24);
+
+        this.setOnClickListener(this);
+
         setFocusable(true);
         setBackgroundColor(Color.WHITE);
         //setOnClickListener(listenerAdapter);
@@ -150,9 +154,12 @@ public class PartyButtonItem extends View implements View.OnClickListener {
             }
 
 
+
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
+       // intent.putExtra("partyData", this.party.getMarkers());
+        getContext().startActivity(intent);
     }
 
 

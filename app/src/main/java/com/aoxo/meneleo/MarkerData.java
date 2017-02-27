@@ -16,7 +16,7 @@ public class MarkerData {
     public MarkerOptions marker;
     public Date date;
     private String dateFormat = "h:mm a";
-    private MapPlaceType markerType;
+    public MapPlaceType markerType;
     private int indexOnMapPoints;
 
 

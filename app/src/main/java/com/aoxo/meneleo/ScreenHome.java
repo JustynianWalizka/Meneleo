@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class Page2Fragment extends Fragment {
+public class ScreenHome extends Fragment {
 
     View v;
     LinearLayout LL;
@@ -30,7 +30,7 @@ public class Page2Fragment extends Fragment {
     private boolean isAddButtonsVisible = false;
     private LinearLayout LL2;
 
-    public Page2Fragment() {
+    public ScreenHome() {
         // Required empty public constructor
     }
 

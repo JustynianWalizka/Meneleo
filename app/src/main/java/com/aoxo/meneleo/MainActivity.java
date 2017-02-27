@@ -1,7 +1,6 @@
 package com.aoxo.meneleo;
 
 
-import android.*;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,9 +13,7 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -26,14 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.vision.text.Text;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -49,9 +40,9 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
 
-    private Page1Fragment profile;
-    private Page2Fragment home;
-    private Page3Fragment map;
+    private ScreenProfile profile;
+    private ScreenHome home;
+    private ScreenMap map;
 
     private PartyData party;
     private int lCounter = 0;
@@ -82,7 +73,7 @@ public class MainActivity extends FragmentActivity {
         map.startPartyPresentation(pdp);
         pager.setCurrentItem(2);
     }
-    public void getData(Page3Fragment instance) {
+    public void getData(ScreenMap instance) {
         Log.i("Zuzka", "data request");
         instance.setPosition(50.0357316, 19.9000488);
     }
@@ -126,16 +117,16 @@ public class MainActivity extends FragmentActivity {
         return party;
     }
 
-    public void profileReady(Page1Fragment fragment) {
+    public void profileReady(ScreenProfile fragment) {
         profile = fragment;
     }
 
-    public void mapReady(Page3Fragment fragment) {
+    public void mapReady(ScreenMap fragment) {
         map = fragment;
 
     }
 
-    public void startPageReady(Page2Fragment fragment) {
+    public void startPageReady(ScreenHome fragment) {
         home = fragment;
     }
 
@@ -287,9 +278,9 @@ public class MainActivity extends FragmentActivity {
 
     private void initializePaging() {
 
-        fragments.add(Fragment.instantiate(this, Page1Fragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, Page2Fragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, Page3Fragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, ScreenProfile.class.getName()));
+        fragments.add(Fragment.instantiate(this, ScreenHome.class.getName()));
+        fragments.add(Fragment.instantiate(this, ScreenMap.class.getName()));
 
         mPagerAdapter = new PagerAdapter(this.getSupportFragmentManager(), fragments);
 
