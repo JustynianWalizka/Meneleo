@@ -1,6 +1,9 @@
 package com.aoxo.meneleo;
 
 import android.app.Activity;
+import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -16,18 +19,17 @@ import java.util.List;
  * Created by tomek on 09.10.2016.
  */
 
-public class PartyData {
+public class PartyData implements Parcelable{
 
     private double distance = 0;
     private Date date;
     private Calendar c;
-    private List<LatLng> mapPoints;
     private List<MarkerData> markers;
+    private List<Location> locations;
     private long uid;
     private String dateFormat = "dd-MMM-yyyy";
 
-    public LatLng location;
-    public int state; // status imprezy.
+    public int state = 0; // status imprezy.
 
 
     public PartyData()
@@ -37,14 +39,14 @@ public class PartyData {
         uid = date.getTime(); // uid is time in miliseconds
 
         markers = new ArrayList<MarkerData>();
-        mapPoints = new ArrayList<>();
+        locations = new ArrayList<Location>();
         state = 0;
     }
 
-    public PartyData(long uid, List<LatLng> mapPoints, List<MarkerData> markers, int state)
+    public PartyData(long uid, List<Location> locations, List<MarkerData> markers, int state)
     {
         this.uid = uid;
-        this.mapPoints = mapPoints;
+        this.locations = locations;
         this.markers = markers;
         this.state = state;
         this.date.setTime(uid);
@@ -67,36 +69,54 @@ public class PartyData {
         return markers;
     }
 
-    public List<LatLng> getMapPoints()
+    public List<Location> getLocations()
     {
-       return mapPoints;
+       return locations;
     }
 
-    public void setTrackPoint(LatLng point)
+    public List<LatLng> getLocationsAsLatLng()
     {
-        mapPoints.add(point);
-        location=point;
+        List<LatLng> tmpList = new ArrayList<>();
+        for(int i=0; i<locations.size();i++)
+        {
+            tmpList.add(getLocationAsLatLngAtIndex(i));
+        }
+      return tmpList;
     }
 
+    public void setTrackPoint(Location location)
+    {
+        locations.add(location);
+    }
+
+    public Location getLastLocation()
+    {
+        return locations.get(locations.size()-1);
+    }
+    public LatLng getLocationAsLatLngAtIndex(int index)
+    {
+        return new LatLng(locations.get(index).getLatitude(),
+                          locations.get(index).getLongitude());
+    }
     public void setMarker(MapPlaceType mp, String description)
     {
 
-        markers.add(new MarkerData(mp,location,description,c.getTime()));
+        markers.add(new MarkerData(mp,getLastLocation(),description,c.getTime()));
 
     }
 
     public double getDistance()
     {
         double d=0;
-        if(mapPoints.size()>1)
+        if(locations.size()>1)
         {
-            for(int i=1; i<mapPoints.size(); i++)
+            for(int i=1; i<locations.size(); i++)
             {
                 d+= distFrom(
-                        (float)mapPoints.get(i-1).latitude,
-                        (float)mapPoints.get(i-1).longitude,
-                        (float)mapPoints.get(i).latitude,
-                        (float)mapPoints.get(i).longitude);
+                        (float)locations.get(i-1).getLatitude(),
+                        (float)locations.get(i-1).getLongitude(),
+                        (float)locations.get(i).getLatitude(),
+                        (float)locations.get(i).getLongitude());
             }
         }
 
@@ -153,6 +173,47 @@ public class PartyData {
     }
 
 
+    //============== parcel shit
+    private PartyData(Parcel in) {
+
+        in.readTypedList(markers, MarkerData.CREATOR);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        /*
+         this.uid = uid;
+        this.locations = locations;
+        this.markers = markers;
+        this.state = state;
+        this.date.setTime(uid);
+         */
+        dest.writeLong(uid);
+        dest.writeInt(state);
+
+        dest.writeTypedList(markers);
+        dest.writeTypedList(locations);
 
 
+
+
+
+    }
+
+    public static final Parcelable.Creator<PartyData> CREATOR
+            = new Parcelable.Creator<PartyData>() {
+        public PartyData createFromParcel(Parcel in) {
+            return new PartyData(in);
+        }
+
+        public PartyData[] newArray(int size) {
+            return new PartyData[size];
+        }
+    };
 }

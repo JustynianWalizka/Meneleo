@@ -1,5 +1,9 @@
 package com.aoxo.meneleo;
 
+import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -8,10 +12,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MarkerData {
+public class MarkerData implements Parcelable{
 
 
-    public LatLng location;
+    public Location location;
     public String description;
     public MarkerOptions marker;
     public Date date;
@@ -20,7 +24,7 @@ public class MarkerData {
     private int indexOnMapPoints;
 
 
-    public MarkerData(MapPlaceType mp, LatLng location, String description, Date date)
+    public MarkerData(MapPlaceType mp, Location location, String description, Date date)
     {
         SimpleDateFormat df = new SimpleDateFormat(dateFormat);
         markerType = mp;
@@ -29,8 +33,11 @@ public class MarkerData {
 
         this.location = location;
         this.description = description;
-        marker = new MarkerOptions().position(
-                location).title(description).snippet(df.format(date));
+        marker = new MarkerOptions();
+        marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+        marker.title(description);
+        marker.snippet(df.format(date));
+
 
         // Changing marker icon
         switch(mp)
@@ -69,5 +76,37 @@ public class MarkerData {
     public MarkerOptions getMarker()
     {
         return marker;
+    }
+
+    public MarkerData(Parcel in)
+    {
+
+    }
+    public static final Parcelable.Creator<MarkerData> CREATOR
+            = new Parcelable.Creator<MarkerData>() {
+        public MarkerData createFromParcel(Parcel in) {
+            return new MarkerData(in);
+        }
+
+        public MarkerData[] newArray(int size) {
+            return new MarkerData[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeParcelable(location,flags);
+        dest.writeString(description);
+        dest.writeLong(date.getTime());
+        dest.writeString(markerType.toString());
+
+
+
     }
 }

@@ -69,13 +69,13 @@ public class MainActivity extends FragmentActivity {
 
     public void startPartyPresentation(PartyData pdp)
     {
-        Log.i("Zuzka", "wielkosc listy punktow"+pdp.getMapPoints().size());
+       // Log.i("Zuzka", "wielkosc listy punktow"+pdp.getMapPoints().size());
         map.startPartyPresentation(pdp);
         pager.setCurrentItem(2);
     }
     public void getData(ScreenMap instance) {
         Log.i("Zuzka", "data request");
-        instance.setPosition(50.0357316, 19.9000488);
+     //   instance.setPosition(50.0357316, 19.9000488);
     }
 
 
@@ -256,7 +256,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onLocationChanged(Location location) {
                // location.
-                map.setPosition(location.getLatitude(),location.getLongitude());
+                map.setPosition(location);
             }
 
             @Override

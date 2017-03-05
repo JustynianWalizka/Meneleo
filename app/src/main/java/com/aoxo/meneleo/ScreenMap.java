@@ -2,6 +2,7 @@ package com.aoxo.meneleo;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -36,7 +37,7 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
     MapView mMapView;
     public GoogleMap googleMap;
     MarkerOptions marker;
-    public LatLng currentPosition;
+    public Location currentPosition;
     Polyline polyline;
     Polyline tmpPolyline;
     private boolean tracking = false;
@@ -199,7 +200,7 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
 
                 if (currentPosition != null) {
                     CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(currentPosition).zoom(17).build();
+                            .target(getCurrentPositionAsLatLng()).zoom(17).build();
                     //marker.position(new LatLng(lat, lon));
                     googleMap.animateCamera(CameraUpdateFactory
                             .newCameraPosition(cameraPosition));
@@ -348,13 +349,12 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
 
 
 
-    public void setPosition(double lat, double lon) {
-        Log.i("Zuzka", "setting position: "+lat+" "+lon);
+    public void setPosition(Location location) {
+
         if (tracking) {
 
-            currentPosition = new LatLng(lat, lon);
-
-            party.setTrackPoint(currentPosition);
+            currentPosition = location;
+            party.setTrackPoint(location);
           /*  if(party.getMapPoints().size()==1)
             {
 
@@ -375,9 +375,9 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
 
 
         } else {
-            currentPosition = new LatLng(lat, lon);
+            currentPosition = location;
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lon)).zoom(15).build();
+                    .target(getCurrentPositionAsLatLng()).zoom(15).build();
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
             Activity act = getActivity();
@@ -412,15 +412,19 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
 
     }
 
+    public LatLng getCurrentPositionAsLatLng()
+    {
+        return new LatLng(currentPosition.getLatitude(),currentPosition.getLongitude());
+    }
     public void startPartyPresentation(PartyData pdp)
     {
-        if(pdp.getMapPoints().size()>0) {
+        if(pdp.getLocations().size()>0) {
             partyPresentationData = pdp;
             partyPresentation = true;
             autoMoveToPoint = false;
             redrawMapElements();
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(pdp.getMapPoints().get(0)).zoom(17).build();
+                    .target(pdp.getLocationAsLatLngAtIndex(0)).zoom(17).build();
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
         }
@@ -433,12 +437,13 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
         {
 
             //rectOptions.addAll(party.getMapPoints()).color(Color.parseColor("#402278d4"));
-            rectOptions.addAll(partyPresentationData.getMapPoints()).color(Color.GREEN);
+            rectOptions.addAll(partyPresentationData.getLocationsAsLatLng());
+            rectOptions.color(Color.GREEN);
 
         }
         else
         {
-            rectOptions.addAll(party.getMapPoints()).color(Color.BLUE);
+            rectOptions.addAll(party.getLocationsAsLatLng()).color(Color.BLUE);
         }
 
 
@@ -448,14 +453,14 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
         polyline = googleMap.addPolyline(rectOptions);
         //tmpPolyline = googleMap.addPolyline(rectOptionsPresentation);
 
-        Log.i("Zuzka", "dlugosc map points: "+party.getMapPoints().size());
+       // Log.i("Zuzka", "dlugosc map points: "+party.getMapPoints().size());
         for(int i=0; i<party.getMarkers().size(); i++)
         {
             googleMap.addMarker(party.getMarkers().get(i).getMarker());
         }
         if(autoMoveToPoint) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(currentPosition).zoom(17).build();
+                    .target(getCurrentPositionAsLatLng()).zoom(17).build();
             //marker.position(new LatLng(lat, lon));
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
