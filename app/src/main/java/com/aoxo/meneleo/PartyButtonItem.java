@@ -158,7 +158,7 @@ public class PartyButtonItem extends View implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
-       // intent.putExtra("partyData", this.party.getMarkers());
+        intent.putExtra("partyData", this.party);
         getContext().startActivity(intent);
     }
 

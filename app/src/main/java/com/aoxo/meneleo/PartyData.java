@@ -23,12 +23,11 @@ public class PartyData implements Parcelable{
 
     private double distance = 0;
     private Date date;
-    private Calendar c;
     private List<MarkerData> markers;
     private List<Location> locations;
     private long uid;
     private String dateFormat = "dd-MMM-yyyy";
-
+    private Calendar c;
     public int state = 0; // status imprezy.
 
 
@@ -176,7 +175,13 @@ public class PartyData implements Parcelable{
     //============== parcel shit
     private PartyData(Parcel in) {
 
+        uid = in.readLong();
+        state = in.readInt();
         in.readTypedList(markers, MarkerData.CREATOR);
+        in.readTypedList(locations,Location.CREATOR);
+
+        date.setTime(uid);
+        c = Calendar.getInstance();
     }
 
     @Override
@@ -196,12 +201,8 @@ public class PartyData implements Parcelable{
          */
         dest.writeLong(uid);
         dest.writeInt(state);
-
         dest.writeTypedList(markers);
         dest.writeTypedList(locations);
-
-
-
 
 
     }

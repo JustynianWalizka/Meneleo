@@ -16,12 +16,16 @@ public class PartyDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //PartyData pd = getIntent().getExtras().getParcelable("partyData");
+        PartyData pd = getIntent().getExtras().getParcelable("partyData");
 
+        for (int i=0; i<pd.getMarkers().size(); i++)
+        {
+            addElement(pd.getMarkers().get(i).markerType);
+        }
 
 
         setContentView(R.layout.activity_party_details);
-        addElement(MapPlaceType.START);
+       /* addElement(MapPlaceType.START);
         addElement(MapPlaceType.BEER);
         addElement(MapPlaceType.COOLPLACE);
         addElement(MapPlaceType.DRINK);
@@ -41,7 +45,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
         addElement(MapPlaceType.NOW);
 
 
-
+        */
 
 
 
