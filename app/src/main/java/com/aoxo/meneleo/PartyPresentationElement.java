@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by tomek on 26.02.2017.
@@ -21,10 +23,10 @@ public class PartyPresentationElement extends View implements View.OnClickListen
     private final static int ICON_MARGIN_LEFT = 200;
     private final static int elementHeight = 230;
 
-    private String elementTime = "17:44";
-    private String elementDistance = "794 m";
-    private String elementTitle = "Title of element";
-    private String elementDescription = "...";
+    private String elementTime = "error";
+    private String elementDistance = "error";
+    private String elementTitle = "error";
+    private String elementDescription = "error";
     private String dateFormat = "h:mm k";
 
 
@@ -34,22 +36,15 @@ public class PartyPresentationElement extends View implements View.OnClickListen
     // private final InternalListener listenerAdapter = new InternalListener();
 
 
-    public PartyPresentationElement(Context context, MarkerData md )
-    {
+
+    public PartyPresentationElement(Context context, MarkerData md) {
         super(context);
+
+
         loadImages(context, md.markerType);
-
-        SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-        elementTime = df.format(md.date);
-
-
-
-    }
-    public PartyPresentationElement(Context context, MapPlaceType mpt) {
-        super(context);
-
-        loadImages(context, mpt);
-
+        elementTime = md.getDateAsString();
+        elementDistance = PartyData.getDistanceAsString(md.getDistance());
+        elementDescription = md.description;
 
         setFocusable(true);
         setBackgroundColor(Color.WHITE);

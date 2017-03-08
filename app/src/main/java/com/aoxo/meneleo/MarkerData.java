@@ -3,6 +3,7 @@ package com.aoxo.meneleo;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -19,14 +20,16 @@ public class MarkerData implements Parcelable{
     public String description;
     public MarkerOptions marker;
     public Date date;
-    private String dateFormat = "h:mm a";
+    private double distance = 0; // dystans od poczatku party
+    private String dateFormat = "H:mm";
     public MapPlaceType markerType;
     private int indexOnMapPoints;
-
+    public boolean noLocation = false;
+    SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 
     public MarkerData(MapPlaceType mp, Location location, String description, Date date)
     {
-        SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+
         markerType = mp;
         BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker();
         this.date = date;
@@ -34,9 +37,21 @@ public class MarkerData implements Parcelable{
         this.location = location;
         this.description = description;
         marker = new MarkerOptions();
-        marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
-        marker.title(description);
-        marker.snippet(df.format(date));
+        if(location != null)
+        {
+
+            marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            marker.title(description);
+            marker.snippet(df.format(date));
+            noLocation=false;
+            Log.d("CDA", "ustawiam noLocation na false");
+        }
+        else
+        {
+            Log.d("CDA", "ustawiam noLocation na true");
+            noLocation=true;
+        }
+
 
 
         // Changing marker icon
@@ -73,13 +88,73 @@ public class MarkerData implements Parcelable{
 
     }
 
+    public String getDateAsString()
+    {
+       return df.format(date);
+    }
+    public double getDistance()
+    {
+        return distance;
+    }
+
+    public void setDistance(double distance)
+    {
+        this.distance = distance;
+    }
+
     public MarkerOptions getMarker()
     {
         return marker;
     }
 
+    public void setLocation(Location location)
+    {
+        if(location != null) {
+            this.location = location;
+            marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            marker.title(description);
+            marker.snippet(df.format(date));
+            noLocation=false;
+        }
+        else
+        {
+            noLocation = true;
+        }
+
+    }
+    private MapPlaceType readMapPlaceType(String name)
+    {
+        MapPlaceType mpt = MapPlaceType.valueOf(name);
+
+
+
+        Log.d("CDA", "wczytany map place type to: "+mpt.toString());
+        return mpt;
+
+    }
     public MarkerData(Parcel in)
     {
+        date = new Date();
+
+        location = (Location) in.readParcelable(Location.class.getClassLoader());
+        description = in.readString();
+        date.setTime(in.readLong());
+
+
+        markerType = readMapPlaceType(in.readString());
+        noLocation = in.readByte() != 0;
+        distance = in.readDouble();
+
+
+        marker = new MarkerOptions();
+        if(!noLocation)
+        {
+            marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            marker.title(description);
+            marker.snippet(df.format(date));
+        }
+
+
 
     }
     public static final Parcelable.Creator<MarkerData> CREATOR
@@ -105,6 +180,9 @@ public class MarkerData implements Parcelable{
         dest.writeString(description);
         dest.writeLong(date.getTime());
         dest.writeString(markerType.toString());
+        dest.writeByte((byte) (noLocation ? 1 : 0));
+        dest.writeDouble(distance);
+
 
 
 

@@ -2,6 +2,7 @@ package com.aoxo.meneleo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,15 +17,28 @@ public class PartyDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_party_details);
+
         PartyData pd = getIntent().getExtras().getParcelable("partyData");
+
+        Log.d("CDA", "wielkosc party data: "+pd.getMarkers().size());
 
         for (int i=0; i<pd.getMarkers().size(); i++)
         {
-            addElement(pd.getMarkers().get(i).markerType);
+            Log.d("CDA", "wczytuje element: "+i);
+            Log.d("CDA", "wczytuje element: "+pd.getMarkers().get(i).markerType.toString());
+            addElement(pd.getMarkers().get(i));
         }
 
+switch(pd.state)
+{
 
-        setContentView(R.layout.activity_party_details);
+    case 0:  //addElement(MapPlaceType.NOW);// impreza trwa
+        break;
+    default: break;
+}
+
+
        /* addElement(MapPlaceType.START);
         addElement(MapPlaceType.BEER);
         addElement(MapPlaceType.COOLPLACE);
@@ -51,10 +65,10 @@ public class PartyDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void addElement(MapPlaceType mpt)
+    public void addElement(MarkerData md)
     {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        PartyPresentationElement ppe = new PartyPresentationElement(getBaseContext(), mpt);
+        PartyPresentationElement ppe = new PartyPresentationElement(getBaseContext(), md);
 
         params.setMargins(0,0,0,0);
 

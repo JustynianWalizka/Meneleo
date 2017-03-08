@@ -40,6 +40,8 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
     public Location currentPosition;
     Polyline polyline;
     Polyline tmpPolyline;
+
+
     private boolean tracking = false;
     boolean autoMoveToPoint = true;
     boolean partyPresentation = false;
@@ -348,13 +350,31 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
     }
 
 
+    private void repairMarkersIfNecessary(Location location)
+    {
+        Log.d("CDA", "markers reparation");
+        if(!party.noLocation) {
+            if (party.reparationNeeded) {
+                for (int i = 0; i < party.getMarkers().size(); i++) {
+                    if (party.getMarkers().get(i).location == null) {
+                        party.getMarkers().get(i).setLocation(location);
+                    }
+                }
+                party.reparationNeeded = false;
+            }
+        }
+    }
 
     public void setPosition(Location location) {
+
+
+        if(location!=null) party.noLocation = false;
 
         if (tracking) {
 
             currentPosition = location;
             party.setTrackPoint(location);
+            repairMarkersIfNecessary(location);
           /*  if(party.getMapPoints().size()==1)
             {
 
@@ -456,14 +476,23 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
        // Log.i("Zuzka", "dlugosc map points: "+party.getMapPoints().size());
         for(int i=0; i<party.getMarkers().size(); i++)
         {
-            googleMap.addMarker(party.getMarkers().get(i).getMarker());
+            Log.d("CDA", "draw marker: "+i);
+            Log.d("CDA", "location status: "+party.getMarkers().get(i).noLocation);
+
+            if(!party.getMarkers().get(i).noLocation)
+            {
+
+                googleMap.addMarker(party.getMarkers().get(i).getMarker());
+            }
         }
         if(autoMoveToPoint) {
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(getCurrentPositionAsLatLng()).zoom(17).build();
-            //marker.position(new LatLng(lat, lon));
-            googleMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
+           if(!party.noLocation) {
+               CameraPosition cameraPosition = new CameraPosition.Builder()
+                       .target(getCurrentPositionAsLatLng()).zoom(17).build();
+               //marker.position(new LatLng(lat, lon));
+               googleMap.animateCamera(CameraUpdateFactory
+                       .newCameraPosition(cameraPosition));
+           }
         }
 
 

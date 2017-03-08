@@ -91,12 +91,14 @@ public class MainActivity extends FragmentActivity {
 
     public void startParty(boolean start) {
         if (start) {
+
+            startGPS();
             starttime = System.currentTimeMillis();
             h2.postDelayed(run,0);
             party = new PartyData();
             map.startTracking(party);
             profile.addElement(party, true);
-            startGPS();
+            setMarker(MapPlaceType.START, "Party start!");
 
 
             //  /  // Calendar c = Calendar.getInstance();
@@ -108,6 +110,7 @@ public class MainActivity extends FragmentActivity {
             h2.removeCallbacks(run);
             map.stopTracking();
             setMarker(MapPlaceType.END, "End of party");
+            party.state=1;
 
         }
 

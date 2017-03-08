@@ -28,6 +28,8 @@ public class PartyData implements Parcelable{
     private long uid;
     private String dateFormat = "dd-MMM-yyyy";
     private Calendar c;
+    public boolean reparationNeeded = false; // some markers does not have location
+    public boolean noLocation = true;
     public int state = 0; // status imprezy.
 
 
@@ -85,13 +87,28 @@ public class PartyData implements Parcelable{
 
     public void setTrackPoint(Location location)
     {
+        noLocation = false;
         locations.add(location);
+        distance = getDistance();
     }
 
     public Location getLastLocation()
     {
-        return locations.get(locations.size()-1);
+        Log.d("CDA", "getLastLacation");
+        if(locations.size()!=0) {
+
+
+            Log.d("CDA", "jest git");
+            return locations.get(locations.size() - 1);
+        }
+        else
+        {
+            Log.d("CDA", "brak lokacji. zwracam null: ");
+            return null;
+        }
     }
+
+
     public LatLng getLocationAsLatLngAtIndex(int index)
     {
         return new LatLng(locations.get(index).getLatitude(),
@@ -99,8 +116,15 @@ public class PartyData implements Parcelable{
     }
     public void setMarker(MapPlaceType mp, String description)
     {
+        if(getLastLocation()==null)
+        {
+            Log.d("CDA", "repair needed!!");
+            reparationNeeded = true;
+        }
+        MarkerData markerData = new MarkerData(mp,getLastLocation(),description,c.getTime());
+        markerData.setDistance(distance);
 
-        markers.add(new MarkerData(mp,getLastLocation(),description,c.getTime()));
+        markers.add(markerData);
 
     }
 
@@ -143,6 +167,24 @@ public class PartyData implements Parcelable{
         return dist;
     }
 
+    public static String getDistanceAsString(double distance)
+    {
+        DecimalFormat df=new DecimalFormat("0.00");
+        String dist;
+
+        //double d = Double.MAX_EXPONENT;
+        if(distance<1000)
+        {
+            dist = String.valueOf((int)distance)+"m";
+        }
+        else
+        {
+            distance=distance/1000;
+            dist=String.valueOf(df.format(distance))+"km";
+        }
+        return dist;
+    }
+
     public static float distFrom(float lat1, float lng1, float lat2, float lng2) {
         double earthRadius = 6371000; //meters
         double dLat = Math.toRadians(lat2-lat1);
@@ -175,8 +217,14 @@ public class PartyData implements Parcelable{
     //============== parcel shit
     private PartyData(Parcel in) {
 
+        markers = new ArrayList<MarkerData>();
+        locations = new ArrayList<Location>();
+        date = new Date();
+
         uid = in.readLong();
         state = in.readInt();
+        noLocation = in.readByte() != 0;
+
         in.readTypedList(markers, MarkerData.CREATOR);
         in.readTypedList(locations,Location.CREATOR);
 
@@ -201,6 +249,8 @@ public class PartyData implements Parcelable{
          */
         dest.writeLong(uid);
         dest.writeInt(state);
+        dest.writeByte((byte) (noLocation ? 1 : 0));
+
         dest.writeTypedList(markers);
         dest.writeTypedList(locations);
 
