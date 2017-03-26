@@ -53,6 +53,7 @@ public class PartyPresentationElement extends View implements View.OnClickListen
         setClickable(true);
 
     }
+    
 
     private void loadImages(Context context, MapPlaceType mpt)
     {

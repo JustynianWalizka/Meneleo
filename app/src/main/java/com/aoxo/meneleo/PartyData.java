@@ -254,6 +254,8 @@ public class PartyData implements Parcelable{
         dest.writeTypedList(markers);
         dest.writeTypedList(locations);
 
+        
+
 
     }
 

@@ -9,17 +9,20 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Vector;
 
 public class PartyDetailsActivity extends AppCompatActivity {
     private Vector<PartyPresentationElement> elements = new Vector<PartyPresentationElement>();
+    private PartyData pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_details);
 
-        PartyData pd = getIntent().getExtras().getParcelable("partyData");
+        pd = getIntent().getExtras().getParcelable("partyData");
 
         Log.d("CDA", "wielkosc party data: "+pd.getMarkers().size());
 
@@ -33,7 +36,18 @@ public class PartyDetailsActivity extends AppCompatActivity {
 switch(pd.state)
 {
 
-    case 0:  //addElement(MapPlaceType.NOW);// impreza trwa
+    case 0:
+
+
+            Calendar c = Calendar.getInstance();
+
+            MarkerData tempMD = new MarkerData(MapPlaceType.NOW,pd.getLastLocation(),"", c.getTime());
+            if(!pd.noLocation)
+            {
+                tempMD.setDistance(pd.getDistance());
+            }
+            addElement(tempMD);
+
         break;
     default: break;
 }
@@ -78,6 +92,7 @@ switch(pd.state)
 
 
         elements.add(ppe);
+
 
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.presentationContainer);
         mainLayout.addView(ppe);
