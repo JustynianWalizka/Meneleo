@@ -1,5 +1,7 @@
 package com.aoxo.meneleo;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,8 @@ import java.util.Vector;
 public class PartyDetailsActivity extends AppCompatActivity {
     private Vector<PartyPresentationElement> elements = new Vector<PartyPresentationElement>();
     private PartyData pd;
+    private Button removeParty;
+    private Button showOnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,30 @@ public class PartyDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_details);
 
         pd = getIntent().getExtras().getParcelable("partyData");
+
+        removeParty = (Button) findViewById(R.id.removePartyButton);
+        showOnMap = (Button) findViewById(R.id.showOnMapButton);
+
+        removeParty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",22);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            }
+        });
+
+        showOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",33);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            }
+        });
+
 
         Log.d("CDA", "wielkosc party data: "+pd.getMarkers().size());
 
@@ -97,5 +125,12 @@ switch(pd.state)
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.presentationContainer);
         mainLayout.addView(ppe);
        // mainLayout.addView(ppe,params);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED,returnIntent);
+        super.onBackPressed();
     }
 }

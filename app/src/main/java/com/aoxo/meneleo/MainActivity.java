@@ -2,6 +2,7 @@ package com.aoxo.meneleo;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -25,6 +26,13 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Vector;
 
@@ -37,6 +45,7 @@ public class MainActivity extends FragmentActivity {
     private LocationListener locationListener;
     private LocationManager locationManager;
 
+    private DatabaseManager dbManager;
     private LinearLayout dotsLayout;
     private TextView[] dots;
 
@@ -44,9 +53,10 @@ public class MainActivity extends FragmentActivity {
     private ScreenHome home;
     private ScreenMap map;
 
+    private List <PartyData> archivePartyData;
     private PartyData party;
     private int lCounter = 0;
-
+    private int initCount = 0;
 
     Handler h2 = new Handler();
     long starttime = 0;
@@ -92,12 +102,15 @@ public class MainActivity extends FragmentActivity {
     public void startParty(boolean start) {
         if (start) {
 
+
+
+
             startGPS();
             starttime = System.currentTimeMillis();
             h2.postDelayed(run,0);
             party = new PartyData();
             map.startTracking(party);
-            profile.addElement(party, true);
+            profile.addElement(party);
             setMarker(MapPlaceType.START, "Party start!");
 
 
@@ -112,6 +125,9 @@ public class MainActivity extends FragmentActivity {
             setMarker(MapPlaceType.END, "End of party");
             party.state=1;
 
+            Log.i("###### PD1","start zapisu do bazy");
+            dbManager.addParty(party);
+
         }
 
     }
@@ -121,17 +137,50 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void profileReady(ScreenProfile fragment) {
+
         profile = fragment;
+        initializationComplete();
+
     }
+
+
+
 
     public void mapReady(ScreenMap fragment) {
         map = fragment;
-
+        initializationComplete();
     }
 
     public void startPageReady(ScreenHome fragment) {
+
         home = fragment;
+        initializationComplete();
     }
+
+    private void initializationComplete()
+    {
+        initCount++;
+        if(initCount==3)
+        {
+            archivePartyData = dbManager.getAllPartyData();
+            for(int i=archivePartyData.size()-1; i>=0; i--)
+            {
+                if(archivePartyData.get(i).state == 0)
+                {
+                    party = archivePartyData.get(i);
+                    startGPS();
+                    starttime = party.getDateInMiliseconds();
+                    h2.postDelayed(run,0);
+                    map.startTracking(party);
+                }
+                profile.addElement(archivePartyData.get(i));
+            }
+
+
+        }
+
+    }
+
 
     public void startGPS() {
 
@@ -171,6 +220,7 @@ public class MainActivity extends FragmentActivity {
 
 
         super.onCreate(savedInstanceState);
+        dbManager = new DatabaseManager(getBaseContext());
         setContentView(R.layout.viewpager_layout);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         initializePaging();
@@ -212,6 +262,70 @@ public class MainActivity extends FragmentActivity {
 
         Log.i("Zuzka", "inicjalizacja tego dziada: "+lCounter);
         lCounter++;
+
+
+
+
+
+
+
+    }
+
+    private void testSerialization()
+    {
+        PartyData pd1 = new PartyData();
+        PartyData pd2 = new PartyData();
+        Location l = new Location("");
+        l.setLatitude(2.534534);
+        l.setLongitude(64.2234);
+
+        pd1.setTrackPoint(l);
+        pd1.setMarker(MapPlaceType.COOLPLACE, "fajne miejsce");
+        l = new Location("");
+        l.setLatitude(2.666666);
+        l.setLongitude(64.77777);
+        pd1.setTrackPoint(l);
+
+
+        pd1.setMarker(MapPlaceType.BEER, "piwerko");
+        pd1.noLocation = false;
+        pd1.state = 1;
+
+        Log.i("###### PD1", "markery: "+ pd1.getMarkers().size());
+        Log.i("###### PD1", "lokacja ostatnia: "+ pd1.getLastLocation());
+        Log.i("###### PD1", "status: "+ pd1.state);
+        Log.i("###### PD1", "uid: "+ pd1.getUid());
+
+
+        try {
+            FileOutputStream fos = getBaseContext().openFileOutput("test123.txt", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(pd1);
+            os.close();
+            fos.close();
+        }
+        catch(Exception ex)
+        {
+            Log.i("###### PD1 zapisywanie", ex.toString());
+        }
+        try {
+            FileInputStream fis = getBaseContext().openFileInput("test123.txt");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            pd2 = (PartyData) is.readObject();
+            is.close();
+            fis.close();
+        }
+        catch(Exception ex)
+        {
+            Log.i("###### PD2 wczytywanie", ex.toString());
+        }
+
+        Log.i("###### PD2", "markery: "+ pd2.getMarkers().size());
+        Log.i("###### PD2", "lokacja ostatnia: "+ pd2.getLastLocation());
+        Log.i("###### PD2", "status: "+ pd2.state);
+        Log.i("###### PD2", "uid: "+ pd2.getUid());
+
+
 
     }
 

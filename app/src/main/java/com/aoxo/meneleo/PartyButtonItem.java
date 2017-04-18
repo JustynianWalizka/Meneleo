@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,8 +56,8 @@ public class PartyButtonItem extends View implements View.OnClickListener {
         this.party = party;
         this.label = "dupatest";
         this.globe_icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_globe_24);
-
-        this.setOnClickListener(this);
+        setId(generateViewId());
+        //this.setOnClickListener(this);
 
         setFocusable(true);
         setBackgroundColor(Color.WHITE);
@@ -157,10 +158,15 @@ public class PartyButtonItem extends View implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+
+/*
         Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
-        intent.putExtra("partyData", this.party);
+        intent.putExtra("partyData", (Parcelable) this.party);
         getContext().startActivity(intent);
+*/
     }
+
 
 
 }

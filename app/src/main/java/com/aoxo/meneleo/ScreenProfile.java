@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,14 +29,16 @@ import java.util.Arrays;
 import java.util.Vector;
 
 
-public class ScreenProfile extends Fragment {
+public class ScreenProfile extends Fragment implements View.OnClickListener {
 
     private View v;
     private Vector<PartyButtonItem> elements = new Vector<PartyButtonItem>();
+
     private PartyButtonItem pbi;
     public ScreenProfile() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -42,7 +46,7 @@ public class ScreenProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        v = inflater.inflate(R.layout.fragment_page1, container,
+        v = inflater.inflate(R.layout.fragment_page1_new, container,
                 false);
 
 
@@ -66,12 +70,18 @@ public class ScreenProfile extends Fragment {
     {
         pbi.updateDistance();
 
+
         Log.i("Zuzka", "Page1: updte distance");
     }
-    public void addElement(PartyData party, boolean active)
+    public void addElement(PartyData party)
     {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
         pbi = new PartyButtonItem(getContext(), party);
+        pbi.setOnClickListener(this);
+        //pbi.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+
        /* pbi.setOnClickListener(new View.OnClickListener() {
 
         @Override
@@ -84,7 +94,7 @@ public class ScreenProfile extends Fragment {
 
         }
     });*/
-        if(active) pbi.setActive();
+       /* if(party.state == 0) pbi.setActive();
         pbi.setId(pbi.generateViewId());
 
         params.setMargins(5,10,5,0);
@@ -96,15 +106,45 @@ public class ScreenProfile extends Fragment {
         else
         {
             params.addRule(RelativeLayout.BELOW, elements.get(elements.size()-1).getId());
-        }
+        }*/
 
         elements.add(pbi);
 
-        RelativeLayout mainLayout = (RelativeLayout) v.findViewById(R.id.profileContainer);
-        mainLayout.addView(pbi,params);
+
+        LinearLayout mainLayout = (LinearLayout) v.findViewById(R.id.profileContainer);
+        mainLayout.addView(pbi);
 
 
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Log.i("OnClick: ", "id kliknietego obiektu "+v.getId());
+        for(int i=0; i<elements.size(); i++)
+        {
+            if(v.getId() == elements.get(i).getId())
+            {
+                Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
+                intent.putExtra("partyData", (Parcelable) elements.get(i).getPartyData());
+               // getContext().startActivityForResult(intent);
+                startActivityForResult(intent,0);
+            }
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       // Log.i("Party Details", "Party details closed, request code: "+requestCode+ " result code: "+resultCode);
+        switch(resultCode)
+        {
+            case Activity.RESULT_OK: Log.i("Result", " Result OK, some data in data: "+ data.getIntExtra("result",999));
+                break;
+            case Activity.RESULT_CANCELED:
+                Log.i("Result", " Result CANCELLED, NO DATA");
+                break;
+        }
+    }
 }

@@ -10,28 +10,45 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MarkerData implements Parcelable{
+public class MarkerData implements Parcelable, Externalizable {
 
-
-    public Location location;
-    public String description;
-    public MarkerOptions marker;
-    public Date date;
-    private double distance = 0; // dystans od poczatku party
-    private String dateFormat = "H:mm";
-    public MapPlaceType markerType;
-    private int indexOnMapPoints;
+    // values that are stored in database
+    private int version = 0;        // all this values will be stored as text
+    public Date date;               //
+    public MapPlaceType markerType; //
+    public String description;      //
+    private double distance = 0;    //
     public boolean noLocation = false;
+    public Location location;       //
+
+    // -------------------------------
+
+    public MarkerOptions marker;
+    private String dateFormat = "H:mm";
     SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 
+    public MarkerData()
+    {
+        date = new Date();
+        marker = new MarkerOptions();
+    }
     public MarkerData(MapPlaceType mp, Location location, String description, Date date)
     {
+        initializeMarker(mp,location,description,date);
 
+    }
+
+    private void initializeMarker(MapPlaceType mp, Location location, String description, Date date)
+    {
         markerType = mp;
-        BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker();
+        BitmapDescriptor icon;
         this.date = date;
 
         this.location = location;
@@ -85,6 +102,70 @@ public class MarkerData implements Parcelable{
 
         }
         marker.icon(icon);
+    }
+    public String getMarkerDataAsString()
+    {
+        String outputString = "{";
+        String outputVersion = Integer.toString(version);
+        String outputDate = Long.toString(date.getTime());
+        String outputMarkerType = markerType.toString();
+        String outputDescription = description.replaceAll("[\\{\\}\\|]",""); // need to remove special characters from description
+        String outputDistance = Double.toString(distance);
+        String outputNoLocation = Integer.toString(noLocation ? 1 : 0);
+        String outputLocation = "";
+        if(!noLocation)
+        {
+            outputLocation = location.getLatitude()+";"+location.getLongitude();
+        }
+        else
+        {
+            outputLocation = "null;null";
+        }
+
+
+        outputString += outputVersion         + "|" +
+                        outputDate            + "|" +
+                        outputMarkerType      + "|" +
+                        outputDescription     + "|" +
+                        outputDistance        + "|" +
+                        outputNoLocation      + "|" +
+                        outputLocation;
+
+        outputString += "}";
+        Log.d("CDA", "zapisane dane markera: "+outputString);
+        return outputString;
+    }
+
+    public MarkerData(String markerData)  // create marker from string
+    {
+        markerData = markerData.replaceAll("[\\{\\}]","");  // remove {} if any
+        String[] inputString = markerData.split("\\|");
+        if(inputString.length>0) {
+
+            version = Integer.parseInt(inputString[0]);
+            Date tmpDate = new Date();
+            tmpDate.setTime(Long.parseLong(inputString[1]));
+            MapPlaceType tmpMPT = readMapPlaceType(inputString[2]);
+            String tmpDesctiption = inputString[3];
+            distance = Double.parseDouble(inputString[4]);
+            noLocation =  Integer.parseInt(inputString[5])!= 0;
+
+            Location tmpLocation = null;
+            if(!noLocation)
+            {
+                tmpLocation = new Location("Mello Location Provider");
+                String [] tmpStringLocation = inputString[6].split(";");
+                tmpLocation.setLatitude(Double.parseDouble(tmpStringLocation[0]));
+                tmpLocation.setLongitude(Double.parseDouble(tmpStringLocation[1]));
+            }
+            initializeMarker(tmpMPT, tmpLocation, tmpDesctiption,tmpDate);
+
+        }
+        else
+        {
+            // cos poszlo nie tak
+            Log.d("Error: ", "empty data");
+        }
 
     }
 
@@ -186,5 +267,43 @@ public class MarkerData implements Parcelable{
 
 
 
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+
+        out.writeDouble(location.getLatitude());
+        out.writeDouble(location.getLongitude());
+        out.writeObject(description);
+        out.writeLong(date.getTime());
+        out.writeObject(markerType.toString());
+        out.writeByte((byte) (noLocation ? 1 : 0));
+        out.writeDouble(distance);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
+
+
+        location = new Location("Location Provider");
+        location.setLatitude(in.readDouble());
+        location.setLongitude(in.readDouble());
+
+        description =(String) in.readObject();
+        date.setTime(in.readLong());
+
+
+        markerType = readMapPlaceType((String) in.readObject());
+        noLocation = in.readByte() != 0;
+        distance = in.readDouble();
+
+        if(!noLocation)
+        {
+            marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            marker.title(description);
+            marker.snippet(df.format(date));
+        }
     }
 }

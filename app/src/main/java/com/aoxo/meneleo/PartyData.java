@@ -6,8 +6,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +25,7 @@ import java.util.List;
  * Created by tomek on 09.10.2016.
  */
 
-public class PartyData implements Parcelable{
+public class PartyData implements Parcelable, Externalizable {
 
     private double distance = 0;
     private Date date;
@@ -46,6 +52,7 @@ public class PartyData implements Parcelable{
 
     public PartyData(long uid, List<Location> locations, List<MarkerData> markers, int state)
     {
+        this();
         this.uid = uid;
         this.locations = locations;
         this.markers = markers;
@@ -108,7 +115,10 @@ public class PartyData implements Parcelable{
         }
     }
 
-
+    public long getDateInMiliseconds()
+    {
+        return date.getTime();
+    }
     public LatLng getLocationAsLatLngAtIndex(int index)
     {
         return new LatLng(locations.get(index).getLatitude(),
@@ -254,7 +264,7 @@ public class PartyData implements Parcelable{
         dest.writeTypedList(markers);
         dest.writeTypedList(locations);
 
-        
+
 
 
     }
@@ -269,4 +279,80 @@ public class PartyData implements Parcelable{
             return new PartyData[size];
         }
     };
+
+
+    //serializable shit
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+        Log.i("###### PARTY DATA", "poczatek zapisu");
+        out.writeLong(uid);
+        out.writeInt(state);
+        out.writeByte((byte) (noLocation ? 1 : 0));
+
+
+
+        String tmpLocations = "";
+        for(int i=0; i<locations.size();i++)
+        {
+            if(i==0) {
+                tmpLocations += locations.get(i).getLatitude() + ";" + locations.get(i).getLongitude();
+            }
+            else
+            {
+                tmpLocations += "&"+locations.get(i).getLatitude() + ";" + locations.get(i).getLongitude();
+            }
+        }
+        Log.i("###### PARTY DATA", "tmpLocations "+ tmpLocations);
+        out.writeObject(tmpLocations);
+        out.writeInt(markers.size());
+
+        for(int i=0; i<markers.size(); i++)
+        {
+            out.writeObject(markers.get(i));
+        }
+
+        Log.i("###### PARTY DATA", "koniec zapisu");
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
+        Log.i("###### PARTY DATA", "poczatek odczytu");
+        uid = in.readLong();
+        Log.i("###### PARTY DATA", "  >>>>>  uid odczytany");
+        state = in.readInt();
+        Log.i("###### PARTY DATA", "  >>>>>  state odczytany");
+        noLocation = in.readByte() != 0;
+        Log.i("###### PARTY DATA", "  >>>>>  nolocation odczytany");
+
+        String tmpStr = (String) in.readObject();
+        Log.i("###### PARTY DATA", "  >>>>>  tmpStr odczytany" + tmpStr);
+        String[] parts = tmpStr.split("&");
+
+        Log.i("###### PARTY DATA", "  >>>>>>>>>>>  tworzenie lokacji");
+        for(int i=0; i<parts.length; i++)
+        {
+            if(parts[i] != "") {
+                Log.i("###### PARTY DATA", "  >>>>>>>>>>>  Parts: " + parts[i]);
+                String[] LatLng = parts[i].split(";");
+                Location tmpLoc = new Location("Location Provider");
+                Log.i("###### PARTY DATA", "  >>>>>>>>>>>  LAT: " + LatLng[0]);
+                Log.i("###### PARTY DATA", "  >>>>>>>>>>>  LNG: " + LatLng[1]);
+
+                tmpLoc.setLatitude(Double.parseDouble(LatLng[0]));
+                tmpLoc.setLongitude(Double.parseDouble(LatLng[1]));
+                locations.add(tmpLoc);
+            }
+        }
+
+        int markerCout = in.readInt();
+        for(int i=0; i < markerCout; i++)
+        {
+            markers.add((MarkerData) in.readObject());
+        }
+
+        Log.i("###### PARTY DATA", "koniec odczytu");
+
+    }
 }

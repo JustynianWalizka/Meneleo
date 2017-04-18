@@ -368,10 +368,10 @@ public class ScreenMap extends Fragment implements OnCameraMoveStartedListener,
     public void setPosition(Location location) {
 
 
-        if(location!=null) party.noLocation = false;
+
 
         if (tracking) {
-
+            if(location!=null) party.noLocation = false;
             currentPosition = location;
             party.setTrackPoint(location);
             repairMarkersIfNecessary(location);

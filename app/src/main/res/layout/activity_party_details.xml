@@ -2,39 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_party_details"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="0dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.aoxo.meneleo.PartyDetailsActivity"
-    android:weightSum="1">
+    android:weightSum="7"
+    tools:context="com.aoxo.meneleo.PartyDetailsActivity">
+
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:id="@+id/textView5"
-        android:layout_weight="0.07" />
+        android:layout_weight="1"
+        android:text="TextView" />
 
     <ScrollView
         android:id="@+id/presentationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_weight="5">
 
         <LinearLayout
+            android:id="@+id/presentationContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/presentationContainer"
-            android:paddingBottom="100dp"
-          >
+            android:paddingBottom="100dp">
 
 
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/removePartyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Remove" />
+
+        <Button
+            android:id="@+id/showOnMapButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Map" />
+    </LinearLayout>
+
 </LinearLayout>
