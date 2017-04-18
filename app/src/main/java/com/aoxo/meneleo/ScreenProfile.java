@@ -78,42 +78,24 @@ public class ScreenProfile extends Fragment implements View.OnClickListener {
 
         pbi = new PartyButtonItem(getContext(), party);
         pbi.setOnClickListener(this);
-        //pbi.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-
-
-       /* pbi.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-
-                Intent intent = new Intent(getContext(), PartyDetailsActivity.class);
-                intent.putExtra("partyData", );
-                startActivity(intent);
-
-        }
-    });*/
-       /* if(party.state == 0) pbi.setActive();
-        pbi.setId(pbi.generateViewId());
-
-        params.setMargins(5,10,5,0);
-
-        if(elements.size()==0)
-        {
-            params.addRule(RelativeLayout.BELOW, R.id.textView4);
-        }
-        else
-        {
-            params.addRule(RelativeLayout.BELOW, elements.get(elements.size()-1).getId());
-        }*/
 
         elements.add(pbi);
 
 
         LinearLayout mainLayout = (LinearLayout) v.findViewById(R.id.profileContainer);
         mainLayout.addView(pbi);
+    }
 
+    public void removeElement(PartyData pd)
+    {
+        for(int i=0; i<elements.size(); i++)
+        {
+            if(elements.get(i).getPartyData().getUid() == pd.getUid())
+            {
+                LinearLayout mainLayout = (LinearLayout) v.findViewById(R.id.profileContainer);
+                mainLayout.removeView(elements.get(i));
+            }
+        }
 
     }
 
@@ -140,11 +122,21 @@ public class ScreenProfile extends Fragment implements View.OnClickListener {
        // Log.i("Party Details", "Party details closed, request code: "+requestCode+ " result code: "+resultCode);
         switch(resultCode)
         {
-            case Activity.RESULT_OK: Log.i("Result", " Result OK, some data in data: "+ data.getIntExtra("result",999));
+            case Activity.RESULT_OK:
+                switch(data.getIntExtra("result",999))
+                {
+                    case 22:
+                        Activity act = getActivity();
+                        if(act instanceof MainActivity)
+                        {
+                            ((MainActivity) act).removeParty(data.getLongExtra("uid",0));
+                        }
+                }
                 break;
             case Activity.RESULT_CANCELED:
                 Log.i("Result", " Result CANCELLED, NO DATA");
                 break;
         }
     }
+
 }

@@ -220,7 +220,15 @@ public class ScreenHome extends Fragment {
 
         return v;
     }
+public void stopstart()
+{
+    showButton.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
+    counterText.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
+    tv_partyTimeElapsed.setVisibility(isPartyStarted ? View.INVISIBLE : View.VISIBLE);
+    isPartyStarted = !isPartyStarted;
+    startParty.setBackgroundResource(isPartyStarted ? R.drawable.ic_stop_btn_normal : R.drawable.start_btn_selector);
 
+}
 
 
 

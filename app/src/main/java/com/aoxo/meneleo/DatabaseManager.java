@@ -226,9 +226,15 @@ public class DatabaseManager extends SQLiteOpenHelper{
         db.close();
     }
 
-    public boolean removeParty(PartyData p)
+    public void removeParty(long uid)
     {
-        return true;
+        // 1. build the query
+        String query = "DELETE FROM " + TABLE_PARTYDATA + " WHERE "+COLUMN_PARTY_UID+ " = "+uid;
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+
     }
 
     /*

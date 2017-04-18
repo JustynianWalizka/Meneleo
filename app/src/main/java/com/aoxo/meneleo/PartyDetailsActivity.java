@@ -36,6 +36,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result",22);
+                returnIntent.putExtra("uid",pd.getUid());
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }
@@ -46,6 +47,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result",33);
+                returnIntent.putExtra("uid",pd.getUid());
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }

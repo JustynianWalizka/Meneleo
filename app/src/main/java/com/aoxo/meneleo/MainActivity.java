@@ -109,6 +109,7 @@ public class MainActivity extends FragmentActivity {
             starttime = System.currentTimeMillis();
             h2.postDelayed(run,0);
             party = new PartyData();
+            archivePartyData.add(party);
             map.startTracking(party);
             profile.addElement(party);
             setMarker(MapPlaceType.START, "Party start!");
@@ -127,6 +128,7 @@ public class MainActivity extends FragmentActivity {
 
             Log.i("###### PD1","start zapisu do bazy");
             dbManager.addParty(party);
+            party = null;
 
         }
 
@@ -143,7 +145,39 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+public void removeParty(long partyuid)
+{
+    int i;
+   // boolean found = false;
+    for (i = 0; i < archivePartyData.size(); i++) {
+        if (partyuid == archivePartyData.get(i).getUid()) {
 
+            if(archivePartyData.get(i).state == 0)
+            {
+                startParty(false);
+                home.stopstart();
+            }
+            profile.removeElement(archivePartyData.get(i));
+            dbManager.removeParty(archivePartyData.get(i).getUid());
+            archivePartyData.remove(archivePartyData.get(i));
+
+            //found = true;
+        }
+    }
+
+   /* if(!found)
+    {
+        if(party != null) {
+            if (party.getUid() == partyuid) {
+                startParty(false);
+                profile.removeElement(party);
+                party = null;
+            }
+        }
+    }*/
+
+
+}
 
 
     public void mapReady(ScreenMap fragment) {
